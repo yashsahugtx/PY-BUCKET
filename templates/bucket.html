@@ -1,0 +1,50 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}S3 Files{% endblock %}
+
+{% block navbar %}
+<div class="navbar navbar-fixed-top">
+    <!-- ... -->
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-12-xs">
+            <h3>Bucket Info</h3>
+            <p>Created: {{ my_bucket.creation_date | datetimeformat }}</p>
+            {% with messages = get_flashed_messages() %}
+            {% if messages%}
+            <p class="bg-info" style="padding: 15px;">
+                {% for msg in messages %}
+                {{ msg }}<br>
+                {% endfor %}
+            </p>
+            {% endif %}
+            {% endwith %}
+            <hr>
+
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Filename</th>
+                        <th scope="col">Last Modified</th>
+                        <th scope="col">Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for file in files %}
+                    <tr>
+
+                        <td>{{file.key}}</td>
+                        <td>{{file.last_modified | datetimeformat}}</td>
+                        <td>{{file.key | file_type}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

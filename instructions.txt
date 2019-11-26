@@ -3,7 +3,7 @@ Instructions are given below:
 
 1. python3 -m pip install --user --upgrade pip
 
-Note: Im attaching env folder with this zip so just run below command and follow step 5:
+Note: Im attaching env folder with this zip so just run below command and follow step 5 & 6:
 $source venv/bin/activate
 
 2. Installing venv

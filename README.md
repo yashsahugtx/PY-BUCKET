@@ -4,7 +4,7 @@ This web app provide AWS S3 based file managing features including UPLOAD, DELET
 ![alt](https://i.ibb.co/myrY9Zb/output-onlinepngtools.png)
 
 ### Project Overview
-> To Develop an application that provides a list of items in a AWS S3 bucket as well as provide a user registration and authentication system. Registered users will have the ability to UPLOAD, DOWLOAD and DELETE their own items in the BUCKET.
+> To Develop an application that provides a list of items in a AWS S3 bucket as well as provide a user registration and authentication system. Registered users will have the ability to UPLOAD, DOWNLOAD and DELETE their own items in the BUCKET.
 
 ### Why This Project?
 > Modern web applications perform a variety of functions and provide amazing features and utilities to their users; but deep down, it’s really all just creating, reading, updating and deleting data. In this project, I combined my knowledge of building dynamic websites with persistent data storage to create a web application that provides a compelling service to your users.

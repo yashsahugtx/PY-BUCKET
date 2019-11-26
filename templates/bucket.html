@@ -1,50 +1,57 @@
-{% extends "bootstrap/base.html" %}
-{% block title %}S3 Files{% endblock %}
+{% extends "base.html" %}
 
-{% block navbar %}
-<div class="navbar navbar-fixed-top">
-    <!-- ... -->
-</div>
-{% endblock %}
 
 {% block content %}
-<div class="container">
+<h3>Welcome, {{current_user.name}}</h3>
+{% with messages = get_flashed_messages() %}
+{% if messages%}
+<p class="notification is-danger"">
+    {% for msg in messages %}
+    💡{{ msg }}<br>
+    {% endfor %}
+</p>
+{% endif %}
+{% endwith %}
+<div class=" container">
     <div class="row">
         <div class="col-12-xs">
-            <h3>Bucket Info</h3>
-            <p>Created: {{ my_bucket.creation_date | datetimeformat }}</p>
-            {% with messages = get_flashed_messages() %}
-            {% if messages%}
-            <p class="bg-info" style="padding: 15px;">
-                {% for msg in messages %}
-                {{ msg }}<br>
-                {% endfor %}
-            </p>
-            {% endif %}
-            {% endwith %}
-            <hr>
-
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Filename</th>
-                        <th scope="col">Last Modified</th>
-                        <th scope="col">Type</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for file in files %}
-                    <tr>
-
-                        <td>{{file.key}}</td>
-                        <td>{{file.last_modified | datetimeformat}}</td>
-                        <td>{{file.key | file_type}}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-
+            <h3>All Uploaded Files</h3>
+            <p>Bucket Created: {{ my_bucket.creation_date | datetimeformat }}</p>
         </div>
     </div>
-</div>
-{% endblock %}
+    <hr>
+    <div class="table-responsive-xl">
+        <table class=" table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Filename</th>
+                    <th scope="col">Last Modified</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Download</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                <tr>
+
+                    <td>{{file.key}}</td>
+                    <td>{{file.last_modified | datetimeformat}}</td>
+                    <td>{{file.key | file_type}}</td>
+                    <td>
+                        <form class="download-form" action="{{url_for('download')}}" method="post">
+                            <input type="hidden" name="key" value="{{file.key}}">
+                            <button type="submit" class="btn btn-sm">⏬</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form class="delete-form" action="{{url_for('delete')}}" method="post">
+                            <input type="hidden" name="key" value="{{file.key}}">
+                            <button type="submit" class="btn btn-sm">🗑️</button>
+                        </form>
+                    </td>
+                </tr> {% endfor %} </tbody>
+        </table>
+
+    </div>
+    </div> {% endblock %}

@@ -1,18 +1,16 @@
-{% extends "bootstrap/base.html" %}
-{% block title %}PyBucket | Upload{% endblock %}
-
-{% block navbar %}
-<div class="navbar navbar-fixed-top">
-    <!-- ... -->
-</div>
-{% endblock %}
+{% extends "base.html" %}
 
 {% block content %}
-<form class="upload-form form-group" action="/upload" method="POST" enctype="multipart/form-data">
-    <label for="file">Upload Your File</label>
-    <br></br>
-    <input type="file" name="file">
-    <br></br>
-    <button name="submit" class="btn btn-primary type=" submit">Upload</button>
+<form class="upload-form form-signin form-group" action="/upload" method="POST" enctype="multipart/form-data">
+    <img class="mb-4" src="https://i.ibb.co/myrY9Zb/output-onlinepngtools.png" alt="" width="250px" height="auto" />
+    <h1 class="h3 mb-3 font-weight-normal">PY-BUCKET Upload</h1>
+    <label for="file" class="sr-only">Upload Your File</label>
+    <input type="file" name="file" class="form-control" />
+    <br>
+    <button name="submit" type=" submit" class="btn btn-primary btn-lg">Upload</button>
+    <br />
+    <br />
+    <p><a href="{{ url_for('files')}}">Go Back to Files</a></p>
+
 </form>
 {% endblock %}

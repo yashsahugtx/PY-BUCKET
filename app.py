@@ -1,6 +1,11 @@
-from flask import Flask, render_template, flash, redirect, url_for, jsonify,current_app, request, _request_ctx_stack
-from flask_jwt import JWT
-from security import authenticate, identity
+from flask import Flask, Response, render_template, flash, redirect, url_for, jsonify,current_app, request, _request_ctx_stack
+from flask_jwt_extended import (
+    JWTManager, jwt_required, get_jwt_identity,
+    create_access_token, create_refresh_token,
+    jwt_refresh_token_required, get_raw_jwt
+)
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, LoginManager, current_user,login_user, logout_user, login_required
@@ -15,47 +20,49 @@ s3 = boto3.client('s3', aws_access_key_id=S3_KEY,
 app = Flask(__name__)
 app.secret_key = "super secret key"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
+app.config['JWT_SECRET_KEY'] = 'super-secretxyyxyyy'
+app.config['JWT_BLACKLIST_ENABLED'] = True
+app.config['JWT_BLACKLIST_TOKEN_CHECKS'] = ['access', 'refresh']
 Bootstrap(app)
 db = SQLAlchemy(app)
 app.jinja_env.filters['file_type'] = file_type
 app.jinja_env.filters['datetimeformat'] = datetimeformat
 login_manager = LoginManager()
 login_manager.init_app(app)
+jwt = JWTManager(app)
+blacklist = set()
+limiter = Limiter(
+    app,
+    key_func=get_remote_address,
+    default_limits=["5 per minute"]
+)
 
-class User(UserMixin, db.Model):
+class User(UserMixin,db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(100))
 
-@jwt.payload_handler
-def request_handler():
-    auth_header_value = request.headers.get('Authorization', None)
-    auth_header_prefix = current_app.config['JWT_AUTH_HEADER_PREFIX']
-    if not auth_header_value:
-        # check if flask_login is configured
-        if isinstance(current_app.login_manager, LoginManager):
-            # load user
-            current_app.login_manager._load_user()
-            # if successful, this will set user variable at request context
-            if hasattr(_request_ctx_stack.top, 'user'):
-                # generate token
-                access_token = _jwt.jwt_encode_callback(_request_ctx_stack.top.user)
-                return access_token
-    parts = auth_header_value.split()
-    if parts[0].lower() != auth_header_prefix.lower():
-        raise JWTError('Invalid JWT header', 'Unsupported authorization type')
-    elif len(parts) == 1:
-        raise JWTError('Invalid JWT header', 'Token missing')
-    elif len(parts) > 2:
-        raise JWTError('Invalid JWT header', 'Token contains spaces')
-    return parts[1]
+@jwt.token_in_blacklist_loader
+def check_if_token_in_blacklist(decrypted_token):
+    jti = decrypted_token['jti']
+    return jti in blacklist
 '''
+@jwt_required
+def logoutx():
+    return 'xxxx'
+    jti = get_raw_jwt()['jti']
+    return jti
+    blacklist.add(jti)
+    return jsonify({"msg": "Successfully logged out"}), 200
+'''
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
 @app.route('/login')
+@limiter.exempt
 def login():
     return render_template('login.html')
 
@@ -96,7 +103,7 @@ def signup_post():
 
     db.session.add(new_user)
     db.session.commit()
-
+    flash('You can login now!')
     return redirect(url_for('login'))
 
 @app.route('/logout')
@@ -104,29 +111,55 @@ def signup_post():
 def logout():
     logout_user()
     return redirect(url_for('login'))
-'''
-@app.route('/bucket')
-def files():
-    s3_resource = boto3.resource('s3')
-    my_bucket = s3_resource.Bucket(S3_BUCKET)
-    summaries = my_bucket.objects.all()
-    return render_template('bucket.html', my_bucket=my_bucket, files=summaries)
 
+@app.route('/')
+@app.route('/files')
+def files():
+    if current_user.is_authenticated:
+        s3_resource = boto3.resource('s3')
+        my_bucket = s3_resource.Bucket(S3_BUCKET)
+        summaries = my_bucket.objects.all()
+        return render_template('bucket.html', my_bucket=my_bucket, files=summaries)
+    else:
+        return render_template('login.html')
 
 @app.route('/upload', methods=['POST', 'GET'])
-@jwt_required()
+@limiter.limit("4 per minute")
 def upload():
     if request.method == 'POST':
         file = request.files['file']
-
         s3_resource = boto3.resource('s3')
         my_bucket = s3_resource.Bucket(S3_BUCKET)
         my_bucket.Object(file.filename).put(Body=file)
         flash('File Uploaded Successfully!')
         return redirect(url_for('files'))
     elif request.method == 'GET':
-        return render_template('upload.html')
+        if current_user.is_authenticated:
+            return render_template('upload.html')
+        else:
+            return render_template('login.html')
 
+@app.route('/download', methods=['POST'])
+def download():
+    key = request.form['key']
+    s3_resource = boto3.resource('s3')
+    my_bucket= s3_resource.Bucket(S3_BUCKET)
+    file_obj = my_bucket.Object(key).get()
+    return Response(
+        file_obj['Body'].read(),
+        mimetype='text/plain',
+        headers={"Content-Disposition":"attachment;filename={}".format(key)}
+    )
+
+@app.route('/delete', methods=['POST'])
+def delete():
+    key = request.form['key']
+    s3_resource = boto3.resource('s3')
+    my_bucket= s3_resource.Bucket(S3_BUCKET)
+    my_bucket.Object(key).delete()
+
+    flash('The file has been deleted')
+    return redirect(url_for('files'))
 
 if __name__ == '__main__':
     app.run()

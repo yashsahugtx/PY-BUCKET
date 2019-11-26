@@ -1,43 +1,37 @@
-{% extends "bootstrap/base.html" %}
-{% block title %}PyBucket | Upload{% endblock %}
+{% extends "base.html" %}
 
-{% block navbar %}
-<div class="navbar navbar-fixed-top">
-    <!-- ... -->
-</div>
-{% endblock %}
 
 {% block content %}
-
 <div class="column is-4 is-offset-4">
-    <h3 class="title">Login</h3>
+    <br>
     <div class="box">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         <div class="notification is-danger">
-            {{ messages[0] }}
+            💡{{ messages[0] }}
         </div>
         {% endif %}
         {% endwith %}
-        <form method="POST" action="/login">
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
-                </div>
-            </div>
-
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Your Password">
-                </div>
-            </div>
-            <div class="field">
-                <label class="checkbox">
-                    <input type="checkbox">
-                    Remember me
+        <form class="form-signin" method="POST" action="/login">
+            <img class="mb-4" src="https://i.ibb.co/myrY9Zb/output-onlinepngtools.png" alt="" width="250px"
+                height="auto" />
+            <h1 class="h3 mb-3 font-weight-normal">PY-BUCKET Login</h1>
+            <label class="sr-only">Email or Username</label>
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email or Username"
+                required="" autofocus="" />
+            <label class="sr-only">Password</label>
+            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password"
+                required="" />
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" /> Remember me
                 </label>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Login</button>
+            <button class="btn btn-primary btn-lg">Login</button>
+            <br />
+            <br />
+            <p>Don't have an account? <a href="{{ url_for('signup')}}">Create one now</a></p>
+
         </form>
     </div>
 </div>

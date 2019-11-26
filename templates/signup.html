@@ -1,43 +1,34 @@
-{% extends "bootstrap/base.html" %}
-{% block title %}This is an example page{% endblock %}
-
-{% block navbar %}
-<div class="navbar navbar-fixed-top">
-    <!-- ... -->
-</div>
-{% endblock %}
+{% extends "base.html" %}
 
 {% block content %}
 <div class="column is-4 is-offset-4">
-    <h3 class="title">Sign Up</h3>
+    <br>
     <div class="box">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         <div class="notification is-danger">
-            {{ messages[0] }} Go to <a href="{{ url_for('login') }}">login page</a>.
+            💡{{ messages[0] }} Go to <a href="{{ url_for('login') }}">login page</a>.
         </div>
         {% endif %}
         {% endwith %}
-        <form action="/signup" method="POST">
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="email" name="email" placeholder="Email" autofocus="">
-                </div>
-            </div>
+        <form class="form-signin" method="POST" action="/signup">
+            <img class="mb-4" src="https://i.ibb.co/myrY9Zb/output-onlinepngtools.png" alt="" width="250px"
+                height="auto" />
+            <h1 class="h3 mb-3 font-weight-normal">PY-BUCKET Sign-Up</h1>
+            <label class="sr-only">Email or Username</label>
+            <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email or Username"
+                required="" autofocus="" />
+            <label class="sr-only">Email or Username</label>
+            <input class="form-control" type="text" name="name" placeholder="Name" autofocus="">
+            <label class="sr-only">Password</label>
+            <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password"
+                required="" />
 
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="text" name="name" placeholder="Name" autofocus="">
-                </div>
-            </div>
+            <button class="btn btn-primary btn-lg">Sign-Up</button>
+            <br />
+            <br />
+            <p>Have an account? <a href="{{ url_for('login')}}">Login now</a></p>
 
-            <div class="field">
-                <div class="control">
-                    <input class="input is-large" type="password" name="password" placeholder="Password">
-                </div>
-            </div>
-
-            <button class="button is-block is-info is-large is-fullwidth">Sign Up</button>
         </form>
     </div>
 </div>

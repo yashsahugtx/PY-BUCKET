@@ -1,15 +1,13 @@
 You have to use a virtual env to run this assignment.
 Instructions are given below:
 
-1. python3 -m pip install --user --upgrade pip
-
-Note: Im attaching env folder with this zip so just run below command and follow step 5 & 6:
-$source venv/bin/activate
+1. Upgrade PIP
+$ python3 -m pip install --user --upgrade pip
 
 2. Installing venv
 
 On macOS and Linux:
-$python3 -m pip install --user virtualenv
+$ python3 -m pip install --user virtualenv
 
 On Windows:
 py -m pip install --user virtualenv
@@ -17,7 +15,7 @@ py -m pip install --user virtualenv
 3. Commands to activate virtual
 
 On macOS and Linux:
-$source env/bin/activate
+$ source env/bin/activate
 
 On Windows:
 .\env\Scripts\activate

@@ -31,12 +31,12 @@ This web app provide AWS S3 based file managing features including UPLOAD, DELET
 #### Setup Project:
   1. Clone or Download the project and `cd` into the `PyBucket/` folder.
 
-  2. Upgrade PIP
+  2. Upgrade pip
    ```
    $ python3 -m pip install --user --upgrade pip
    ```
 
-  3. Installing venv
+  3. Install virtualenv
   - On macOS and Linux:
   ```
   $ python3 -m pip install --user virtualenv

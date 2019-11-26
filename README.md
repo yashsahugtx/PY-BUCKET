@@ -12,7 +12,7 @@ This web app provide AWS S3 based file managing features including UPLOAD, DELET
 ### What Did I Learn?
   * Develop a RESTful web application using the Python framework Flask
   * Implementing Flask-login and Flask-jwt-extended for security.
-  * Implementing UPLOAD, DOWLOAD and DELETE in a S3 bucket.
+  * Implementing UPLOAD, DOWNLOAD and DELETE in a S3 bucket.
   * Throttling for API call rate
   * Responsive UI
   

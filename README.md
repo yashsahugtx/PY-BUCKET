@@ -1,6 +1,6 @@
 # PY-BUCKET
 This web app provide AWS S3 based file managing features including UPLOAD, DELETE, DOWNLOAD along with login features.
-(https://i.ibb.co/myrY9Zb/output-onlinepngtools.png)
+![alt](https://i.ibb.co/myrY9Zb/output-onlinepngtools.png)
 
 ### Project Overview
 > To Develop an application that provides a list of items in a AWS S3 bucket as well as provide a user registration and authentication system. Registered users will have the ability to UPLOAD, DOWLOAD and DELETE their own items in the BUCKET.
@@ -24,25 +24,37 @@ This web app provide AWS S3 based file managing features including UPLOAD, DELET
   1. Clone or Download the project and `cd` into the `PyBucket/` folder.
 
   2. Upgrade PIP
-   `$ python3 -m pip install --user --upgrade pip`
+   ```
+   $ python3 -m pip install --user --upgrade pip
+   ```
 
   3. Installing venv
   - On macOS and Linux:
-  `$ python3 -m pip install --user virtualenv`
+  ```
+  $ python3 -m pip install --user virtualenv
+  ```
 
-  -On Windows:
-  `py -m pip install --user virtualenv`
+  - On Windows:
+  ```
+  py -m pip install --user virtualenv
+  ```
 
   4. Commands to activate virtual:
 
   - On macOS and Linux:
-  `$ source env/bin/activate`
+  ```
+  $ source env/bin/activate
+  ```
 
   - On Windows:
-  `.\env\Scripts\activate`
+  ```
+  .\env\Scripts\activate
+  ```
 
   5. Install dependencies:
-  `$ pip install -r requirements.txt`
+  ```
+  $ pip install -r requirements.txt
+  ```
 
   6. Change AWS *S3_KEY*, *S3_SECRET* and *S3_BUCKET* with your own values in `.env` file.
   ```
@@ -57,7 +69,9 @@ This web app provide AWS S3 based file managing features including UPLOAD, DELET
 
 #### Launch Project
   1. run the app using command:
-  `$ flask run`
+  ```
+  $ flask run
+  ```
   
   2. Access and test your application by visiting [http://localhost:5000](http://localhost:5000).
 

@@ -16,6 +16,13 @@ This web app provide AWS S3 based file managing features including UPLOAD, DELET
   * Throttling for API call rate
   * Responsive UI
   
+  #### Important **pip** packages used in this app
+  * [boto3](https://pypi.org/project/boto3/)
+  * [Flask-JWT-Extended](https://pypi.org/project/Flask-JWT-Extended/)
+  * [Flask-Limiter](https://pypi.org/project/Flask-Limiter/)
+  * [Flask-Login](https://pypi.org/project/Flask-Login/)
+  * [Flask-SQLAlchemy](https://pypi.org/project/Flask-SQLAlchemy/)
+
 ### How to Run?
 
 #### PreRequisites

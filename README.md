@@ -47,7 +47,7 @@ This web app provide AWS S3 based file managing features including UPLOAD, DELET
   py -m pip install --user virtualenv
   ```
 
-  4. Commands to activate virtual:
+  4. Commands to activate virtual env:
 
   - On macOS and Linux:
   ```

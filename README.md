@@ -70,9 +70,9 @@ This web app provide AWS S3 based file managing features including UPLOAD, DELET
   export FLASK_APP=app.py
   export FLASK_DEBUG=1
 
-  export S3_BUCKET='pybucket' #dummy
-  export S3_KEY='AKIAIUC2W6JYXMZA' #dummy
-  export S3_SECRET='2GIY6m6OxPgwSJzogrACbXjfi9k' #dummy
+  export S3_BUCKET='YOUR_BUCKET_NAME' 
+  export S3_KEY='YOUR_KEY' 
+  export S3_SECRET='YOUR_SECRECT_NOT_MINE' 
   ```
 
 #### Launch Project

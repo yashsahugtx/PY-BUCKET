@@ -29,14 +29,14 @@ This web app provide AWS S3 based file managing features including UPLOAD, DELET
   * [Python ~3.7](https://www.python.org/)
   
 #### Setup Project:
-  1. Clone or Download the project and `cd` into the `PyBucket/` folder.
+#####  1. Clone or Download the project and `cd` into the `PyBucket/` folder.
 
-  2. Upgrade pip
+#####  2. Upgrade pip
    ```
    $ python3 -m pip install --user --upgrade pip
    ```
 
-  3. Install virtualenv
+#####  3. Install virtualenv
   - On macOS and Linux:
   ```
   $ python3 -m pip install --user virtualenv
@@ -46,8 +46,20 @@ This web app provide AWS S3 based file managing features including UPLOAD, DELET
   ```
   py -m pip install --user virtualenv
   ```
-
-  4. Commands to activate virtual env:
+  
+  
+##### 4. Creating a virtual environment
+ - On macOS and Linux:
+ 
+ ```
+ python3 -m venv env
+ ```
+ 
+ -On Windows:
+ ```
+ py -m venv env
+ ```
+#####  5. Commands to activate virtual env:
 
   - On macOS and Linux:
   ```
@@ -59,12 +71,12 @@ This web app provide AWS S3 based file managing features including UPLOAD, DELET
   .\env\Scripts\activate
   ```
 
-  5. Install dependencies:
+#####  6. Install dependencies:
   ```
   $ pip install -r requirements.txt
   ```
 
-  6. Change AWS *S3_KEY*, *S3_SECRET* and *S3_BUCKET* with your own values in `.env` file.
+#####  7. Change AWS *S3_KEY*, *S3_SECRET* and *S3_BUCKET* with your own values in `.env` file.
   ```
   source env/bin/actvate
   export FLASK_APP=app.py
@@ -76,12 +88,12 @@ This web app provide AWS S3 based file managing features including UPLOAD, DELET
   ```
 
 #### Launch Project
-  1. run the app using command:
+#####  1. run the app using command:
   ```
   $ flask run
   ```
   
-  2. Access and test your application by visiting [http://localhost:5000](http://localhost:5000).
+#####  2. Access and test your application by visiting [http://localhost:5000](http://localhost:5000).
 
 
 ### If you're running into issues:

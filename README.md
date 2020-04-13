@@ -84,7 +84,7 @@ This web app provide AWS S3 based file managing features including UPLOAD, DELET
 
   export S3_BUCKET='YOUR_BUCKET_NAME' 
   export S3_KEY='YOUR_KEY' 
-  export S3_SECRET='YOUR_SECRECT_NOT_MINE' 
+  export S3_SECRET='YOUR_SECRET_NOT_MINE' 
   ```
 
 #### Launch Project

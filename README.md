@@ -1,5 +1,5 @@
 # PY-BUCKET
-This web app provide AWS S3 based file managing features including UPLOAD, DELETE, DOWNLOAD along with login features.
+This web app provide AWS S3 based file managing features including UPLOAD, *DELETE*, DOWNLOAD along with login features.
 
 ![alt](https://i.ibb.co/myrY9Zb/output-onlinepngtools.png)
 
